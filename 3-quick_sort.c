@@ -14,24 +14,34 @@ size_t lomutoPartition(int *array, size_t start, size_t end, size_t size)
 	int pivot = array[end], tmp;
 	size_t i = start - 1, j;
 
-	for (j = start; j < end - 1; j++)
+	for (j = start; j < end; j++)
 	{
-		if (array[j] <= pivot)
+		if (array[j] < pivot)
 		{
 			i++;
-			/* swap */
-			tmp = array[j];
-			array[j] = array[i];
-			array[i] = tmp;
+
+			if (i != j)
+			{
+				/* swap */
+				tmp = array[j];
+				array[j] = array[i];
+				array[i] = tmp;
+
+				print_array(array, size);
+			}
 		}
 	}
-	i++;
-	/* swap */
-	tmp = array[i];
-	array[i] = array[end];
-	array[end] = tmp;
 
-	print_array(array, size);
+	i++;
+	if (array[i] > pivot)
+	{
+		/* swap */
+		tmp = array[i];
+		array[i] = array[end];
+		array[end] = tmp;
+
+		print_array(array, size);
+	}
 
 	return (i);
 }
