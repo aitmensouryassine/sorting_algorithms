@@ -24,16 +24,13 @@ size_t hoare_partition(int *array, size_t start, size_t end, size_t size)
 			j++;
 		} while (array[j] < pivot);
 
-		if (i < j)
-			return (i);
+		if (i <= j)
+			return (j);
 
-		if (array[j] > array[i])
-		{
-			tmp = array[j];
-			array[j] = array[i];
-			array[i] = tmp;
-			print_array(array, size);
-		}
+		tmp = array[j];
+		array[j] = array[i];
+		array[i] = tmp;
+		print_array(array, size);
 	}
 }
 
@@ -53,8 +50,8 @@ void quick_sort_rec(int *array, int start, int end, size_t size)
 		return;
 
 	idx_part = hoare_partition(array, start, end, size);
-	quick_sort_rec(array, start, idx_part, size);
-	quick_sort_rec(array, idx_part + 1, end, size);
+	quick_sort_rec(array, start, idx_part - 1, size);
+	quick_sort_rec(array, idx_part, end, size);
 }
 
 /**
